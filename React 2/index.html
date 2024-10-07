@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <body>
+<div id="buttonparent"></div>
+<script>
+//   function onButtonPress() {
+//     const currentValue = document.getElementById("btn").innerHTML;
+//     console.log(currentValue.split(" "))
+//     const currentCounter = currentValue.split(" ")[1];
+//     const newCounter = parseInt(currentCounter) + 1;
+//     document.getElementById("btn").innerHTML = "Counter " + newCounter;
+//   }
+let state = {
+    count : 0
+}
+function onbuttonpress () {
+state.count++
+buttoncomponentrerender()
+}
+
+function buttoncomponentrerender() {
+document.getElementById("buttonparent").innerHTML="";
+const component = buttoncomponent(state.count);
+document.getElementById("buttonparent" ).appendChild(component);
+}
+
+function buttoncomponent(count) {
+    const button = document.createElement("button");
+    button.innerHTML=`Count ${count}`;
+    button.setAttribute("onclick" , "onbuttonpress()");
+    return button;
+}
+
+buttoncomponentrerender();
+</script>
+</body>
+
+</html>
