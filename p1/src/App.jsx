@@ -1,7 +1,7 @@
 //   // suspense API => loading of Asynshronous fn , used with lazy
 import {lazy, useState ,Suspense ,useCallback , useContext } from 'react'
 import {incrContext}  from './context'
-// import './App.css'
+import './App.css'
 // // import { Dashboard } from './components/dashboard'
 // // import Dashboard from React.lazy(() => './components/dashboard')
 // const Dashboard = lazy (() => import('./components/dashboard'))
@@ -95,20 +95,20 @@ return <>
 export default App
 
 
-// const
-// Icount, setCount = usestate(0);
+// const [count, setCount] = usestate(0);
 // // wrap anyone that wants to use the teleported value inside a provider
 // return ( <div>
-// «CountContext.Provider value=(count)>
-// ‹Count setCount=(setCount) />
+// <CountContext.Provider value={count}>
+// <Count setCount={setCount} />
 // </CountContext. Provider>
 // </div>
-// function Count ({setCount)) €
-// return
-// ‹div>
-// ‹CountRenderer />
-// ‹Buttons setCount={setCount) />
+// function Count ({setCount)) {
+// return (
+//   <div>
+// <CountRenderer />
+// <Buttons setCount={setCount} />
 // </div>
+// )
 // function CountRenderer {
 // const count = useContext (CountContext);
 // return <div> {count)
@@ -123,5 +123,8 @@ export default App
 // <but ton
 // setCount (count - 1)
 // F>Decrease‹/button>
-// </div>
+// </div> 
+
+// }
+// }}}}}
 // export default App

@@ -110,3 +110,29 @@ It can be used to access a DOM element directly
 
 const divref = useRef();
 re={divref}
+
+# Suspense and Lazy 
+ is a React component used to suspend the rendering process to perform some asynchronous tasks like getting data from API or loading any other component lazily. 
+ In simple words, Suspense is like waiting for something to happen, where we are not sure when it will happen. Suspense is beneficial in code splitting and data fetching processes.
+- warp in Suspense 
+- const Dashboard = lazy (() => import('./components/dashboard'))
+<Route path="/dashboard" element = { <Suspense fallback={"LOADINGGG ......"}> <Dashboard/> </Suspense>
+
+# Context API
+Context API is used to pass global variables anywhere in the code. It helps when there is a need for sharing state between a lot of nested components. It is light in weight and easier to use, to create a context just need to call React.createContext(). No need to install other dependencies or third-party libraries like redux for state management.
+import {createContext ,useCallback} from 'react';
+
+const incr = useCallback(()=>{
+    setcount((c)=>{
+     return (c+1)
+    })
+  }, [])
+
+export const incrContext = createContext(incr)
+import {incrContext}  from './context'
+<CountContext.Provider value={count}>
+<Count setCount={setCount} />
+</CountContext.Provider>
+
+- it basically reduces DRY or Pop Drilling but doesnt optimize code ie re-rendering happens more.
+
