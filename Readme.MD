@@ -20,13 +20,16 @@ npm run dev
 
 npm run build
 
-  # state 
+# state 
 "State" is an object that holds data that can change over the lifetime of a component.
 
 React tracks this data internally, and when the state changes, it triggers a re-render of the component.
 
 The state is local to the component and can only be updated by that component (although state can be passed down as props to child components).
 
+setCount (count + 1):
+setCount (c => c + 1)
+setCount (function(c) { return c +1 }
   
 
 # Re-rendering in react
@@ -120,19 +123,44 @@ re={divref}
 
 # Context API
 Context API is used to pass global variables anywhere in the code. It helps when there is a need for sharing state between a lot of nested components. It is light in weight and easier to use, to create a context just need to call React.createContext(). No need to install other dependencies or third-party libraries like redux for state management.
-import {createContext ,useCallback} from 'react';
-
-const incr = useCallback(()=>{
-    setcount((c)=>{
-     return (c+1)
-    })
-  }, [])
-
-export const incrContext = createContext(incr)
-import {incrContext}  from './context'
-<CountContext.Provider value={count}>
-<Count setCount={setCount} />
+1. import {createContext, useContext } from 'react';
+2. const CountContext = createContext (0);
+3. Wrap the part of your component tree where you want to share the context. 
+<CountContext.Provider value={count} >
+<Counter count={count}></Counter>
 </CountContext.Provider>
+4. now we can teleport & use it anywhere .
+const c= usecontext(CountContext)
+- CountContext.Provider makes the count value available to all child components via context (instead of passing it as props).
+
+
 
 - it basically reduces DRY or Pop Drilling but doesnt optimize code ie re-rendering happens more.
 
+## State Management
+A cleaner way to store the state of your app.
+Until now, the cleanest thing you can do is use the Context API ,It lets you teleport state.
+But there are better solutions that get rid of the problems that Context Api has (unnecessary re-renders).
+
+# Redux
+Redux is a state managing library used in JavaScript apps. It simply manages the state of your application or in other words, it is used to manage the data of the application. It is used with a library like React. It makes easier to manage state and data. As the complexity of our application increases.
+Building Blocks of redux:  
+- Action
+- Reducer
+- Store
+
+# Recoil
+npm install recoil
+A state management library for React
+Written by some ex React folks
+Other popular ones -
+1. Zustand
+2. Redux
+Recoil
+Has a concept of an "atom" to store the state
+An atom can be defined outside the component
+Can be teleported to any component
+3 things
+- useRecoilState
+- useRecoilValue
+- useSetRecoilState ===useState()
