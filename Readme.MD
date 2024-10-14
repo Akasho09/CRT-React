@@ -164,3 +164,34 @@ Can be teleported to any component
 - useRecoilState
 - useRecoilValue
 - useSetRecoilState ===useState()
+
+# Recoil selectors 
+A selector represents a piece of derived state. You can think of derived state as the output of passing state to a pure function that derives a new value from the said state.
+
+# Asynchronous Queries with Recoil Selectors
+-- to get a atom remotely we use selector as a async fn in get fn of the atom
+import { selector, useRecoilValue } from 'recoil';
+import axios from 'axios';
+
+const userSelector = selector({
+    key: 'userSelector',
+    // get is a async function to fetch notifications
+    get: async () => {
+        const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+        return response.data;
+    },
+});
+
+# atom family
+
+an atomFamily allows you to create parameterized atoms
+
+import { atomFamily } from "recoil";
+import { TODOS } from "./todos";
+
+export const todosAtomFamily = atomFamily({
+  key: 'todosAtomFamily',
+  default: id => {
+    return TODOS.find(x => x.id === id)
+  },
+});
