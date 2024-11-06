@@ -9,7 +9,11 @@ function App() {
   return (
     <>
       <div>
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button onClick={() => {
+          setCount(2)
+          setCount(3) // 3 ie second 
+        }
+        }>
           count is {count}
         </button>
       </div>

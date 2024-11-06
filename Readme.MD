@@ -41,17 +41,6 @@ A state variable that is being used inside a component changes
 A parent component re-render triggers all children re-rendering.
 
   
-
-# useEffect
-
-The "useEffect" Hook allows you to perform side effects in your components. --> stops infinite rerendering
-
-Some examples of side effects are: fetching data, directly updating the DOM, and timers.
-
-useEffect accepts two arguments. The second argument is optional.
-
-useEffect(<function>, <dependency>)
-
   
 
 # React Memo
@@ -195,3 +184,47 @@ export const todosAtomFamily = atomFamily({
     return TODOS.find(x => x.id === id)
   },
 });
+
+## React Hooks
+Hooks allow function components to have access to state and other React features. Because of this, class components are generally no longer needed.
+
+Hooks let you use different React features from your components. You can either use the built-in Hooks or combine them to build your own.
+![alt text](<Screenshot 2024-11-05 at 8.37.21 PM.png>)
+
+# useEffect
+
+The "useEffect" Hook allows you to perform side effects in your components. --> stops infinite rerendering
+
+Some examples of side effects are: fetching data, directly updating the DOM, and timers.
+
+useEffect accepts two arguments. The second argument is optional.
+
+useEffect(<function>, <dependency>)
+
+> useEffect(() => {  //Runs on every render });
+
+> useEffect(() => {  //Runs only on the first render   }, []);
+
+> useEffect(() => {  //Runs on the first render  //And any time any dependency value changes }, [prop, state]);
+
+# React Custom Hooks
+- uses internally another hook eg useState etc
+- Custom Hooks start with "use". Example: useFetch.
+
+
+
+## Lifecycle of Components
+Each component in React has a lifecycle which you can monitor and manipulate during its three main phases.
+
+The three phases are: Mounting, Updating, and Unmounting.
+
+# Mounting
+Mounting means putting elements into the DOM.
+
+React has four built-in methods that gets called, in this order, when mounting a component:
+
+constructor()
+getDerivedStateFromProps()
+render()
+componentDidMount()
+The render() method is required and will always be called, the others are optional and will be called if you define them.
