@@ -1,8 +1,40 @@
-# React + Vite
+## State manangement 
+to avoid unnecessary re-renders.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+1. useState 
+2. Recoil : 
+- Atoms – Independent pieces of state.
+  - An atom is a unit of state in Recoil that can be read and updated independently.
+```javascript
+  import { atom } from "recoil" ;
+  export const counterState = atom({
+  key: "counterState", // Unique identifier
+  default: 0, // Default value
+});
 
-Currently, two official plugins are available:
+    use : const [count, setCount] = useRecoilState(counterState);
+```
+  
+- Selectors – Derived/computed state from atoms.
+Selectors allow you to derive or compute state based on atoms.
+```javascript 
+import { selector } from "recoil";
+import { counterState } from "./atoms";
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+export const doubleCounterState = selector({
+  key: "doubleCounterState",
+  get: ({ get }) => get(counterState) * 2, // Derived state
+});
+
+use :  const doubleCount = useRecoilValue(doubleCounterState);
+```
+
+- RecoilRoot – Wraps the application to provide Recoil functionality.
+```javascript
+<RecoilRoot>
+      <Counter />
+</RecoilRoot>
+```
+
+
+3. Redux

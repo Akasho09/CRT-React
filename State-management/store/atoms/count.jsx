@@ -25,12 +25,12 @@ export const Peopledata = selector({
         const filteredData = jsondata.filter((p) => p.age > age); // Filter based on input age
   return filteredData ;
 }
- })
+})
 
 
- export const Randomperson = atomFamily({
+export const Randomperson = atomFamily({
     key : "Randomperson",
-    default:  (id) => {
+    default: (id) => {
         return jsondata.find((x) => x.id===id)
     }
  })
