@@ -25,11 +25,11 @@ npm run build
 
 React tracks this data internally, and when the state changes, it triggers a re-render of the component.
 
-The state is local to the component and can only be updated by that component (although state can be passed down as props to child components).
+- The state is local to the component and can only be updated by that component (although state can be passed down as props to child components).
 
-setCount (count + 1):
+setCount (count + 1)
 setCount (c => c + 1)
-setCount (function(c) { return c +1 }
+setCount (function(c) { return c +1 })
   
 
 # Re-rendering in react
@@ -45,7 +45,7 @@ A parent component re-render triggers all children re-rendering.
 
 # React Memo
 
-"Components in React are designed to re-render whenever the state or props value changes. "
+"Components in React are designed to re-render whenever the state or props value changes."
 
 Also, when a parent component re-renders, so do all of its child components. This can impact our application performance because,
 
@@ -53,10 +53,9 @@ even if the change is only intended to affect the parent component, all child co
 
 Ideally, child components should only re-render if their state or the props passed to them change.
 
-React.memo() is a higher-order component (HOC) provided by React that memoizes functional components. It means that it caches the result of the component’s rendering based on its props, and re-renders only when the props have changed.
+- React.memo() is a `higher-order component` (HOC) provided by React that memoizes functional components. 
+> It means that it caches the result of the component’s rendering based on its `props`, and re-renders only when the props have changed.
 
-  
-  
 
 # Warning: Each child in a list should have a unique “key” prop.
 
@@ -66,31 +65,83 @@ This becomes important if your array items can move (e.g. due to sorting), get i
 
 A well-chosen key helps React infer what exactly has happened, and make the correct updates to the DOM tree.
 
-JSX elements directly inside a map() call always need keys!
+JSX elements directly inside a map() call always need keys!.
 
-  
   
 #  useMemo
 The React "useMemo" Hook returns a memoized value.
 
-useMemo() is a React Hook used to memoize the result of expensive computations within functional components.
+- useMemo() is a React Hook used to memoize the result of `expensive computations` within functional components.
 
-It memorizes the value returned by a provided function and re-calculates it only when the dependencies change.
+> It memorizes the value returned by a provided `function` and re-calculates it only when the dependencies change.
+```javascript
+import { useState, useMemo } from "react";
 
+function App() {
+  const [count, setCount] = useState(0);
+  const [number, setNumber] = useState(10);
+
+  // Use useMemo to memoize the result
+  const expensiveResult = useMemo(() => {
+    console.log("Running expensive calculation...");
+    return number * 2; // Simulated expensive operation
+  }, [number]); // Recomputes only when 'number' changes
+
+  return (
+    <div>
+      <h2>Expensive Computation: {expensiveResult}</h2>
+      <button onClick={() => setCount(count + 1)}>Re-render {count}</button>
+      <button onClick={() => setNumber(number + 1)}>Change Number</button>
+    </div>
+  );
+}
+```
+> Prevents unnecessary expensive function calls 🔥
+> ✔ Only re-runs when number changes (not count)
   
   
-#  useCallback
-The React "useCallback" Hook returns a memoized callback /function.
+# useCallback : 
+useCallback is a React Hook that memoizes a function, preventing it from being re-created unnecessarily during re-renders. 
+- It is useful when passing `functions as props` to child components to avoid unnecessary re-renders.
+
+- The React "useCallback" Hook returns a memoized callback function.
 
 because f1==f2 is false even if both functions are same.
 
-  
-  
+```javascript
+import { useState, useCallback } from "react";
+import ChildComponent from "./ChildComponent";
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  // Memoized function: re-created only when count changes
+  const handleClick = useCallback(() => {
+    console.log("Button clicked!");
+  }, []); // Empty dependency array means it never changes
+
+  return (
+    <div>
+      <h2>Count: {count}</h2>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <ChildComponent handleClick={handleClick} />
+    </div>
+  );
+}
+export default App;
+```
+> Even if only count changes, handleClick is re-created on every render, causing ChildComponent to re-render unnecessarily.
+  now handleClick remains the same across renders 🔥
+
+
 # Reconciliation
 React "Reconciliation" is the process through which React updates the Browser DOM.
 
 It makes the DOM updates faster in React. It updates the virtual DOM first and then uses the diffing algorithm to make efficient and optimized updates in the Real DOM.
 
+- Render: React creates a Virtual DOM representation of the UI.
+- Diffing: React compares (diffs) the new Virtual DOM with the previous one.
+- Reconciliation: React updates only the changed parts in the real DOM instead of re-rendering the whole page.
   
   
 # useRef
@@ -103,12 +154,21 @@ It can be used to access a DOM element directly
 const divref = useRef();
 re={divref}
 
+- eg :  timer 
+✔ useRef stores a timer ID
+✔ Prevents unnecessary re-renders when starting/stopping the timer
+
+
 # Suspense and Lazy 
+> eg: diff Section loading at diff times.
  is a React component used to suspend the rendering process to perform some asynchronous tasks like getting data from API or loading any other component lazily. 
  In simple words, Suspense is like waiting for something to happen, where we are not sure when it will happen. Suspense is beneficial in code splitting and data fetching processes.
 - warp in Suspense 
 - const Dashboard = lazy (() => import('./components/dashboard'))
-<Route path="/dashboard" element = { <Suspense fallback={"LOADINGGG ......"}> <Dashboard/> </Suspense>
+<Route path="/dashboard" element =  <Suspense fallback={"LOADINGGG ......"}> <Dashboard/> </Suspense>
+- lazy() dynamically imports LazyComponent.
+- Suspense provides a fallback UI (Loading...) while loading.
+- The component loads only when required, improving performance.
 
 # Context API
 Context API is used to pass global variables anywhere in the code. It helps when there is a need for sharing state between a lot of nested components. It is light in weight and easier to use, to create a context just need to call React.createContext(). No need to install other dependencies or third-party libraries like redux for state management.
@@ -121,10 +181,8 @@ Context API is used to pass global variables anywhere in the code. It helps when
 4. now we can teleport & use it anywhere .
 const c= usecontext(CountContext)
 - CountContext.Provider makes the count value available to all child components via context (instead of passing it as props).
-
-
-
 - it basically reduces DRY or Pop Drilling but doesnt optimize code ie re-rendering happens more.
+
 
 ## State Management
 A cleaner way to store the state of your app.
@@ -146,16 +204,18 @@ Other popular ones -
 1. Zustand
 2. Redux
 Recoil
-Has a concept of an "atom" to store the state
-An atom can be defined outside the component
-Can be teleported to any component
+- Has a concept of an "atom" to store the state
+- An atom can be defined outside the component
+- Can be teleported to any component. 
 3 things
-- useRecoilState
-- useRecoilValue
+- useRecoilState only state 
+- useRecoilValue only value based on atom
 - useSetRecoilState ===useState()
 
 # Recoil selectors 
-A selector represents a piece of derived state. You can think of derived state as the output of passing state to a pure function that derives a new value from the said state.
+> Selectors are functions that compute derived state based on atoms.
+- A selector represents a piece of derived state. 
+You can think of derived state as the output of passing state to a pure function that derives a new value from the said state.
 
 # Asynchronous Queries with Recoil Selectors
 -- to get a atom remotely we use selector as a async fn in get fn of the atom
@@ -173,7 +233,7 @@ const userSelector = selector({
 
 # atom family
 
-an atomFamily allows you to create parameterized atoms
+an atomFamily allows you to create `parameterized atoms`
 
 import { atomFamily } from "recoil";
 import { TODOS } from "./todos";
