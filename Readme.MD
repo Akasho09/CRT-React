@@ -288,3 +288,15 @@ getDerivedStateFromProps()
 render()
 componentDidMount()
 The render() method is required and will always be called, the others are optional and will be called if you define them.
+
+
+
+## RESTFUL APIs
+![alt text](image-1.png)
+
+- Stateless: Each request from a client to a server must contain all the information the server needs to fulfill the request. No session state is stored on the server.
+- Client-Server Architecture: RESTful APIs are based on a client-server model, where the client and server operate independently, allowing scalability.
+- Cacheable: Responses from the server can be explicitly marked as cacheable or non-cacheable to improve performance.
+- Uniform Interface: REST APIs follow a set of conventions and constraints, such as consistent URL paths, standardized HTTP methods, and status codes, to ensure smooth communication.
+- Layered System: REST APIs can be deployed on multiple layers, which helps with scalability and security.
+
